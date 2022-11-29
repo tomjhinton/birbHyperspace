@@ -102,7 +102,7 @@ export default function Experience(props) {
     return (
         <Suspense>
       <group {...props} dispose={null}>
-               <OrbitControls makeDefault enableZoom={true} maxPolarAngle={Math.PI * .5}/>
+               {/* <OrbitControls makeDefault enableZoom={true} maxPolarAngle={Math.PI * .5}/> */}
 
         {hyper && <CameraShake
         {...config} />}
