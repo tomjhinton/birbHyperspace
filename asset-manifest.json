@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "./static/css/main.a970388a.css",
-    "main.js": "./static/js/main.ef01db34.js",
+    "main.js": "./static/js/main.2e4c35f1.js",
     "static/media/FerriteCoreDX-Regular.otf": "./static/media/FerriteCoreDX-Regular.a8c9462a382bef1279ef.otf",
     "index.html": "./index.html",
     "main.a970388a.css.map": "./static/css/main.a970388a.css.map",
-    "main.ef01db34.js.map": "./static/js/main.ef01db34.js.map"
+    "main.2e4c35f1.js.map": "./static/js/main.2e4c35f1.js.map"
   },
   "entrypoints": [
     "static/css/main.a970388a.css",
-    "static/js/main.ef01db34.js"
+    "static/js/main.2e4c35f1.js"
   ]
 }
