@@ -44,7 +44,7 @@ void main()
     coswarp(color, 3.);
     coswarp(color, 3.);
     coswarp(color, 3.);
-    // color = mix( vec3(.1, 0.,color2.r), color, color2.b);
+   
    
 
     color = vec3(color.b,1., 1.);

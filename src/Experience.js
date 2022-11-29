@@ -97,7 +97,6 @@ export default function Experience(props) {
         controls: undefined, // if using orbit controls, pass a ref here so we can update the rotation
       }
       
-      console.log(materials["Material.001"])
       materials["Material.001"].side =  THREE.DoubleSide
     return (
         <Suspense>
@@ -164,6 +163,9 @@ export default function Experience(props) {
           receiveShadow
           geometry={nodes.hyperscape.geometry}
           alpha={alpha}
+          onPointerOver={ ()=>  document.body.style.cursor = 'pointer'
+        }
+         onPointerOut={()=>  document.body.style.cursor = 'auto'}
        
         >
              <meshBasicMaterial color="red"/>
