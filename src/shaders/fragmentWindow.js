@@ -51,7 +51,7 @@ void main()
 
     if(alpha > .1){
 
-    color = vec3(step(color2.r, .1));
+    color = vec3(step(color2.r, .05));
     }
 
 

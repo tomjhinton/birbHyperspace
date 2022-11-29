@@ -25,11 +25,11 @@ void main()
 {
  
     vec2 uv = vUv;
-    vec3 color = vec3(1.);
-
+    vec3 color = vec3(0.);
+    float t = uTime +length(uv-.5);
     vec2 uv2 = fract(uv * 10.);
 
-    color.b = step(uv.x +sin(uv2.y * 10.), .5) + sin(uTime);
+    color.b  = step(fract(sin(uv2.y) + sin(uv.x *( (24. * sin(t)) ) ) * .1),.1 );
   
 
 

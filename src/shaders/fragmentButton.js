@@ -44,7 +44,8 @@ void main()
   color *= step(uv.y, sin(uTime));
 
   if(color == vec3(0.)){
-    color = vec3(1.);
+    uv = fract(uv * 40.);
+    color = vec3(step( uv.y, .5));
   }
 
 
