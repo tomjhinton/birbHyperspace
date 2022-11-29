@@ -1,0 +1,30 @@
+@font-face {
+    font-family: Ferrite;
+    src: url('../public/FerriteCoreDX-Regular.otf');
+  }
+
+html,
+body,
+#root
+{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: black;
+}
+
+.title{
+    position: absolute;
+    top: 5%;
+  left: 5%;
+   justify-content: center;
+  width: 100%;
+  height: 20px;
+    color: #4AF626;
+    font-size: 7vh;
+    font-family: Ferrite;
+    pointer-events: none;
+    
+}
