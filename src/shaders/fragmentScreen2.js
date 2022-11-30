@@ -26,7 +26,7 @@ void main()
  
     vec2 uv = vUv;
     uvRipple(uv, .55);
-    vec3 color = vec3(0., uv.x + uv.y, 0.);
+    vec3 color = vec3(0.,( uv.x + uv.y), 0.);
 
    
     

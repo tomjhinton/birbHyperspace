@@ -1,5 +1,5 @@
 import React, { useRef , useState, Suspense} from "react";
-import { useGLTF, shaderMaterial, OrbitControls, CameraShake , Decal, PivotControls, Stars} from "@react-three/drei";
+import { useGLTF, shaderMaterial, OrbitControls, CameraShake , Decal, PivotControls, Stars, useKeyboardControls} from "@react-three/drei";
 
 import vertexShader from './shaders/vertex.js'
 import fragmentShader from './shaders/fragmentWindow.js'
@@ -14,7 +14,7 @@ export default function Experience(props) {
     const { nodes, materials } = useGLTF("./HYPERSPACE2.glb");
    const [active, setActive] = useState(true)
     const [hyper, setHyper] = useState(false)
-
+    const [subscribeKeys, getKeys] = useKeyboardControls() 
     const decal = useLoader(THREE.TextureLoader, './decal.png')
 
 
@@ -30,6 +30,8 @@ export default function Experience(props) {
    
   
    }
+
+   const ship = useRef()
 
     const windowMaterial = useRef()
     const screenMaterial = useRef()
@@ -56,7 +58,11 @@ export default function Experience(props) {
 
     const bigButton = useRef()
 
+    const [smoothedCameraPosition] = useState(() => new THREE.Vector3(0, 1, 3))
+    const [smoothedCameraTarget] = useState(() => new THREE.Vector3())
+
     useFrame((state, delta) => {
+        const { leftward, rightward} = getKeys()
         windowMaterial.current.uTime += delta
       
         windowMaterial.current.alpha = bigButton.current.alpha
@@ -81,6 +87,37 @@ export default function Experience(props) {
       buttonMaterial16.current.uTime += delta * .77
       buttonMaterial17.current.uTime += delta * .44
       buttonMaterial18.current.uTime += delta * .23
+
+       // Camera
+
+       const bodyPosition = ship.current.position
+
+       const cameraPosition = new THREE.Vector3()
+       cameraPosition.copy(bodyPosition)
+       cameraPosition.z += 3.2
+       cameraPosition.y += .7
+
+       const cameraTarget = new THREE.Vector3()
+       cameraTarget.copy(bodyPosition)
+       cameraTarget.y+= 0.25
+
+       smoothedCameraPosition.lerp(cameraPosition, 2 * delta)
+       smoothedCameraTarget.lerp(cameraTarget, 2 * delta)
+
+       state.camera.position.copy(smoothedCameraPosition)
+       state.camera.lookAt(smoothedCameraTarget)
+
+      if(leftward){
+          console.log(state.camera)
+          ship.current.position.x -= .01
+         
+         
+      }
+
+      if(rightward){
+        ship.current.position.x += .01
+        
+    }
      
     })
 
@@ -100,7 +137,7 @@ export default function Experience(props) {
       materials["Material.001"].side =  THREE.DoubleSide
     return (
         <Suspense>
-      <group {...props} dispose={null}>
+      <group {...props} dispose={null} ref={ship}>
                {/* <OrbitControls makeDefault enableZoom={true} maxPolarAngle={Math.PI * .5}/> */}
 
         {hyper && <CameraShake
