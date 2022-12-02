@@ -25,6 +25,6 @@ body,
     color: #4AF626;
     font-size: 7vh;
     font-family: Ferrite;
-    pointer-events: none;
+    cursor: pointer;
     
 }

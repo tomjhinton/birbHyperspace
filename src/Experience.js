@@ -14,6 +14,8 @@ export default function Experience(props) {
     const { nodes, materials } = useGLTF("./HYPERSPACE2.glb");
    const [active, setActive] = useState(true)
     const [hyper, setHyper] = useState(false)
+    const [spin, setSpin] = useState(false)
+
     const [subscribeKeys, getKeys] = useKeyboardControls() 
     const decal = useLoader(THREE.TextureLoader, './decal.png')
 
@@ -29,6 +31,11 @@ export default function Experience(props) {
     
    
   
+   }
+
+   function spinSetter(){
+       setSpin(!spin)
+       console.log(spin)
    }
 
    const ship = useRef()
@@ -93,7 +100,8 @@ export default function Experience(props) {
        const bodyPosition = ship.current.position
 
        const cameraPosition = new THREE.Vector3()
-       cameraPosition.copy(bodyPosition)
+       
+       if(!spin){cameraPosition.copy(bodyPosition)
        cameraPosition.z += 3.2
        cameraPosition.y += .7
 
@@ -105,10 +113,11 @@ export default function Experience(props) {
        smoothedCameraTarget.lerp(cameraTarget, 2 * delta)
 
        state.camera.position.copy(smoothedCameraPosition)
+       state.camera.quaternion.copy(ship.current.quaternion)
        state.camera.lookAt(smoothedCameraTarget)
-
+}
       if(leftward){
-          console.log(state.camera)
+          console.log( ship.current)
           ship.current.position.x -= .01
          
          
@@ -138,12 +147,12 @@ export default function Experience(props) {
     return (
         <Suspense>
       <group {...props} dispose={null} ref={ship}>
-               {/* <OrbitControls makeDefault enableZoom={true} maxPolarAngle={Math.PI * .5}/> */}
+              {spin && <OrbitControls makeDefault enableZoom={true} maxPolarAngle={Math.PI * .5}/> }
 
         {hyper && <CameraShake
         {...config} />}
         <Stars radius={20} depth={50} count={5000} factor={4} saturation={0} fade speed={3} />
-           <Title/>
+           <Title />
         <mesh
           castShadow
           receiveShadow
@@ -275,6 +284,11 @@ export default function Experience(props) {
           castShadow
           receiveShadow
           geometry={nodes.buttons007.geometry}
+          onClick={() =>{
+            spinSetter()}}
+            onPointerOver={ ()=>  document.body.style.cursor = 'pointer'
+        }
+         onPointerOut={()=>  document.body.style.cursor = 'auto'}
           >
           <buttonMaterial ref={buttonMaterial8}/>
           </mesh>
